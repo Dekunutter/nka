@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'AlignedHeader.dart';
+import 'alignedheader.dart';
+import 'hyperlink.dart';
 
 class StatBox extends StatelessWidget {
   StatBox({Key, key, this.title, this.keyTitle, this.valueTitle, this.stats}): super(key: Key);
@@ -42,7 +43,9 @@ class StatBox extends StatelessWidget {
                 TableRow(children: [
                   Padding(
                     padding: EdgeInsets.only(top: 10),
-                    child: Text(rowData.key),
+                    child: Hyperlink(
+                      text: rowData.key
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 10),

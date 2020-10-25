@@ -2,10 +2,10 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:nka/widgets/AlignedHeader.dart';
+import 'package:nka/widgets/alignedheader.dart';
 import 'file:///C:/Users/Deku/Documents/programming/nka/lib/widgets/overviewbox.dart';
 import 'file:///C:/Users/Deku/Documents/programming/nka/lib/widgets/statbox.dart';
-import 'package:nka/widgets/PaddedText.dart';
+import 'package:nka/widgets/paddedtext.dart';
 
 import 'widgets/chart.dart';
 import 'nka.dart';
