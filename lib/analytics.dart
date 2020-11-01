@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nka/widgets/alignedheader.dart';
-import 'file:///C:/Users/Deku/Documents/programming/nka/lib/widgets/overviewbox.dart';
-import 'file:///C:/Users/Deku/Documents/programming/nka/lib/widgets/statbox.dart';
+import 'package:nka/widgets/overviewbox.dart';
 import 'package:nka/widgets/paddedtext.dart';
+import 'package:nka/widgets/statbox.dart';
 
 import 'widgets/chart.dart';
 import 'nka.dart';
