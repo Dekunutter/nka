@@ -1,0 +1,94 @@
+{
+  "recent_emails": [
+    {
+      "name": "Email 1",
+      "sent": 24000,
+      "opens": 6035,
+      "conversions": 6035,
+      "clicked": 3045,
+      "purchased": 354,
+      "unsubscribed": 105,
+      "marked_as_spam": 0,
+      "revenue_history": [
+        155.75,
+        200.0,
+        225.0,
+        215.0,
+        191.50,
+        201.10
+      ]
+    },
+    {
+      "name": "Email 2",
+      "sent": 10000,
+      "opens": 6075,
+      "conversions": 6075,
+      "clicked": 4000,
+      "purchased": 525,
+      "unsubscribed": 95,
+      "marked_as_spam": 2,
+      "revenue_history": [
+        255.75,
+        210.0,
+        225.0,
+        245.0,
+        221.50,
+        231.10
+      ]
+    },
+    {
+      "name": "Email 3",
+      "sent": 50000,
+      "opens": 12035,
+      "conversions": 12035,
+      "clicked": 4095,
+      "purchased": 230,
+      "unsubscribed": 1005,
+      "marked_as_spam": 52,
+      "revenue_history": [
+        215.75,
+        180.0,
+        165.0,
+        145.0,
+        121.50,
+        101.10
+      ]
+    },
+    {
+      "name": "Email 4",
+      "sent": 10,
+      "opens": 9,
+      "conversions": 9,
+      "clicked": 7,
+      "purchased": 0,
+      "unsubscribed": 0,
+      "marked_as_spam": 0,
+      "revenue_history": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "Email 5",
+      "sent": 15000,
+      "opens": 2035,
+      "conversions": 2035,
+      "clicked": 945,
+      "purchased": 254,
+      "unsubscribed": 65,
+      "marked_as_spam": 1,
+      "revenue_history": [
+        145.75,
+        210.0,
+        205.0,
+        195.0,
+        181.50,
+        171.10
+      ]
+    }
+  ]
+}
