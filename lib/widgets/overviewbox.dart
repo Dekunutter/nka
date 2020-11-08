@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:nka/model/EmailPerformance.dart';
 //import 'package:flutter/material.dart';
 //import 'dart:math' as math;
 
@@ -6,6 +7,16 @@ class OverviewBox extends StatelessWidget {
   OverviewBox({Key, key, this.stats}): super(key: Key);
 
   final Map stats;
+
+  //TODO: Convert to K for thousands in first value and % of sent num for other three
+  factory OverviewBox.withEmailData(EmailPerformance data) {
+    Map convertedStats = Map();
+    convertedStats["Sent"] = data.sent.toString();
+    convertedStats["Opened"] = data.opened.toString();
+    convertedStats["Clicked"] = data.clicked.toString();
+    convertedStats["Purchased"] = data.purchased.toString();
+    return new OverviewBox(stats: convertedStats);
+  }
 
   BoxDecoration overviewBoxBorder() {
     return BoxDecoration(

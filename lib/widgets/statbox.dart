@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nka/model/RecentEmail.dart';
 
 import 'alignedheader.dart';
 import 'hyperlink.dart';
 
 class StatBox extends StatelessWidget {
-  StatBox({Key, key, this.title, this.keyTitle, this.valueTitle, this.stats}): super(key: Key);
+  StatBox({Key, key, this.title, this.keyTitle, this.valueTitle, this.stats, this.values}): super(key: Key);
 
   final String title, keyTitle, valueTitle;
-  final Map stats;
+  final List<RecentEmail> stats;
+  final List<int> values;
 
   BoxDecoration statBoxBorder() {
     return BoxDecoration(
@@ -39,19 +41,20 @@ class StatBox extends StatelessWidget {
                   child: Text(valueTitle),
                 ),
               ]),
-              for (var rowData in stats.entries)
+              for (var position = 0; position < stats.length; position++)
                 TableRow(children: [
                   Padding(
                     padding: EdgeInsets.only(top: 10),
+                    // TODO: Clicking on this hyperlink should open up a new page populated with the information in the stat object
                     child: Hyperlink(
-                      text: rowData.key
+                      text: stats[position].name
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: Align(
                       alignment: Alignment.centerRight,
-                      child: Text(rowData.value),
+                      child: Text(values[position].toString()),
                     ),
                   ),
                 ]),
