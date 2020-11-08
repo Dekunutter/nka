@@ -13,17 +13,17 @@ class SimpleLineChart extends StatefulWidget {
 }
 
 class _SimpleLineChartState extends State<SimpleLineChart> {
-  List<GraphPoint> displayedData;
+  List<GraphPoint> displayedData = List<GraphPoint>();
 
   void _updateDisplayedGraphData(List<GraphPoint> dataToDisplay) async {
     displayedData = dataToDisplay;
     setState(() {});
   }
 
-  @override
-  void initState() {
+  @mustCallSuper
+  void didUpdateWidget(Widget oldWidget) {
+    super.didUpdateWidget(oldWidget);
     _updateDisplayedGraphData(widget.dailyData);
-    super.initState();
   }
 
   @override

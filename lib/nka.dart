@@ -11,7 +11,6 @@ typedef dynamic JsonDecode(String source);
 JsonDecode get jsonDecode => json.decode;
 
 Future<double> _getIncome(JsonDecode jsonDecode) async {
-  print('get');
   return 100000.0;
 }
 
@@ -60,8 +59,5 @@ Future<EmailPerformance> parseOverallEmailPerformanceData() async {
 Future<List<RecentEmail>> parseRecentEmailData() async {
   final response = await _loadFromAsset("recentemails.json");
   final jsonResponse = jsonDecode(response)["recent_emails"] as List;
-  print('building recent emails');
-  print(jsonResponse);
-  print(jsonResponse.map((json) => RecentEmail.fromJson(json)).toList());
   return jsonResponse.map((json) => RecentEmail.fromJson(json)).toList();
 }
