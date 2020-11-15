@@ -6,14 +6,14 @@ import 'package:nka/widgets/overviewbox.dart';
 import 'package:nka/widgets/paddedtext.dart';
 import 'package:nka/widgets/statbox.dart';
 
-import 'model/EmailPerformance.dart';
-import 'model/GraphPoint.dart';
-import 'model/RecentEmail.dart';
-import 'widgets/chart.dart';
-import 'nka.dart';
+import '../model/EmailPerformance.dart';
+import '../model/GraphPoint.dart';
+import '../model/RecentEmail.dart';
+import '../widgets/chart.dart';
+import '../nka.dart';
 
 class AnalyticsPage extends StatefulWidget {
-  AnalyticsPage({Key, key, this.title}): super(key: Key);
+  AnalyticsPage({Key key, this.title}): super(key: key);
 
   final String title;
 

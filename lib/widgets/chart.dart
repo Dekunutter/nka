@@ -6,7 +6,7 @@ class SimpleLineChart extends StatefulWidget {
   final bool animate;
   final List<GraphPoint> dailyData, weeklyData, monthlyData, yearlyData, alltimeData;
 
-  SimpleLineChart({Key, key, this.animate, this.dailyData, this.weeklyData, this.monthlyData, this.yearlyData, this.alltimeData}): super(key: Key);
+  SimpleLineChart({Key key, this.animate, this.dailyData, this.weeklyData, this.monthlyData, this.yearlyData, this.alltimeData}): super(key: key);
 
   @override
   _SimpleLineChartState createState() => _SimpleLineChartState();

@@ -3,15 +3,14 @@ import 'package:flutter/widgets.dart';
 
 class PaddedText extends StatelessWidget {
   PaddedText({
-    Key,
-    key,
+    Key key,
     this.text = '',
     this.fontSize = 14,
     this.paddingTop = 10,
     this.paddingBottom = 10,
     this.paddingLeft = 10,
     this.paddingRight = 10,
-  }): super(key: Key);
+  }): super(key: key);
 
   final String text;
   final double fontSize,  paddingTop, paddingBottom, paddingLeft, paddingRight;

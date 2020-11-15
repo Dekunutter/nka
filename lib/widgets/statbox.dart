@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nka/model/RecentEmail.dart';
+import 'package:nka/pages/emailanalytics.dart';
 
 import 'alignedheader.dart';
 import 'hyperlink.dart';
 
 class StatBox extends StatelessWidget {
-  StatBox({Key, key, this.title, this.keyTitle, this.valueTitle, this.stats, this.values}): super(key: Key);
+  StatBox({Key key, this.title, this.keyTitle, this.valueTitle, this.stats, this.values}): super(key: key);
 
   final String title, keyTitle, valueTitle;
   final List<RecentEmail> stats;
@@ -47,7 +48,8 @@ class StatBox extends StatelessWidget {
                     padding: EdgeInsets.only(top: 10),
                     // TODO: Clicking on this hyperlink should open up a new page populated with the information in the stat object
                     child: Hyperlink(
-                      text: stats[position].name
+                      text: stats[position].name,
+                      navigation: MaterialPageRoute(builder: (context) => EmailAnalyticsPage(stats: stats[position]))
                     ),
                   ),
                   Padding(

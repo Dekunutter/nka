@@ -1,7 +1,9 @@
+import 'GraphPoint.dart';
+
 class RecentEmail {
   final String name;
   final int sent, opened, conversions, clicked, purchased, unsubscribed, markedAsSpam;
-  final List<double> revenue;
+  final List<GraphPoint> revenue;
 
   RecentEmail({
     this.name,
@@ -25,7 +27,7 @@ class RecentEmail {
       purchased: json['purchased'] as int,
       unsubscribed: json['unsubscribed'] as int,
       markedAsSpam: json['marked_as_spam'] as int,
-      revenue: new List<double>.from(json['revenue_history']),
+      revenue: new List<double>.from(json['revenue_history']).map((value) => GraphPoint.fromDouble(value)).toList(),
     );
   }
 }
