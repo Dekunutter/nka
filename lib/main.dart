@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'analytics.dart';
+import 'pages/analytics.dart';
 
 void main() => runApp(MyApp());
 

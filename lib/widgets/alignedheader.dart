@@ -2,12 +2,11 @@ import 'package:flutter/widgets.dart';
 
 class AlignedHeader extends StatelessWidget {
   AlignedHeader({
-    Key,
-    key,
+    Key key,
     this.text = '',
     this.fontSize = 16,
     this.alignment = Alignment.centerLeft,
-  }): super(key: Key);
+  }): super(key: key);
 
   final String text;
   final double fontSize;

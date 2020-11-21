@@ -3,21 +3,30 @@ import 'package:flutter/material.dart';
 
 class Hyperlink extends StatelessWidget {
   Hyperlink({
-    Key,
-    key,
+    Key key,
     this.text = '',
-  }): super(key: Key);
+    this.navigation,
+  }): super(key: key);
 
   final String text;
+  final MaterialPageRoute navigation;
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
-        text: text,
-        style: TextStyle(
-          color: Colors.blue,
-          decoration: TextDecoration.underline
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          navigation,
+        );
+      },
+      child: RichText(
+        text: TextSpan(
+          text: text,
+          style: TextStyle(
+            color: Colors.blue,
+            decoration: TextDecoration.underline
+          ),
         ),
       ),
     );

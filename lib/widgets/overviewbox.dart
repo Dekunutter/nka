@@ -4,7 +4,7 @@ import 'package:nka/model/EmailPerformance.dart';
 //import 'dart:math' as math;
 
 class OverviewBox extends StatelessWidget {
-  OverviewBox({Key, key, this.stats}): super(key: Key);
+  OverviewBox({Key key, this.stats}): super(key: key);
 
   final Map stats;
 
@@ -18,6 +18,13 @@ class OverviewBox extends StatelessWidget {
     return new OverviewBox(stats: convertedStats);
   }
 
+  factory OverviewBox.withDeliverability(int unsubscribes, int spam) {
+    Map convertedStats = Map();
+    convertedStats["Unsubscribes"] = unsubscribes.toString();
+    convertedStats["Spam"] = spam.toString();
+    return new OverviewBox(stats: convertedStats);
+  }
+
   BoxDecoration overviewBoxBorder() {
     return BoxDecoration(
       border: Border.all(),
@@ -26,7 +33,7 @@ class OverviewBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (stats.length < 4) {
+    if (stats.length != 2 && stats.length != 4) {
       return Container(
         decoration: overviewBoxBorder(),
         padding: EdgeInsets.all(20),
@@ -47,7 +54,7 @@ class OverviewBox extends StatelessWidget {
             crossAxisCount: 2,
             shrinkWrap: true,
             childAspectRatio: 2.5,
-            children: List.generate(4, (index) {
+            children: List.generate(stats.length, (index) {
               return Container(
                 padding: EdgeInsets.only(top: 10),
                 //color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
