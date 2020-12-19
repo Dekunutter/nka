@@ -1,4 +1,5 @@
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class PaddedText extends StatelessWidget {
@@ -6,6 +7,7 @@ class PaddedText extends StatelessWidget {
     Key key,
     this.text = '',
     this.fontSize = 14,
+    this.fontColor = Colors.black,
     this.paddingTop = 10,
     this.paddingBottom = 10,
     this.paddingLeft = 10,
@@ -13,7 +15,8 @@ class PaddedText extends StatelessWidget {
   }): super(key: key);
 
   final String text;
-  final double fontSize,  paddingTop, paddingBottom, paddingLeft, paddingRight;
+  final double fontSize, paddingTop, paddingBottom, paddingLeft, paddingRight;
+  final Color fontColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +26,7 @@ class PaddedText extends StatelessWidget {
         text,
         style: TextStyle(
           fontSize: fontSize,
+            color: fontColor,
         ),
       ),
     );

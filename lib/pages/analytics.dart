@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:nka/model/GraphData.dart';
 import 'package:nka/widgets/alignedheader.dart';
+import 'package:nka/widgets/earningtrendbox.dart';
 import 'package:nka/widgets/overviewbox.dart';
 import 'package:nka/widgets/paddedtext.dart';
+import 'package:nka/widgets/revenuebox.dart';
 import 'package:nka/widgets/statbox.dart';
 
 import '../model/EmailPerformance.dart';
 import '../model/GraphPoint.dart';
 import '../model/RecentEmail.dart';
+import '../model/RevenueStat.dart';
 import '../widgets/chart.dart';
 import '../nka.dart';
 
@@ -32,18 +36,22 @@ class AnalyticsModel {
       this.yearlyData,
       this.alltimeData,
       this.performanceData,
-      this.recentEmailData
+      this.recentEmailData,
+      this.revenueStatsByType,
+      this.revenueStatsByChannel
       );
   double income;
   int time;
   bool loading;
-  List<GraphPoint> dailyData;
-  List<GraphPoint> weeklyData;
-  List<GraphPoint> monthlyData;
-  List<GraphPoint> yearlyData;
-  List<GraphPoint> alltimeData;
+  GraphData dailyData;
+  GraphData weeklyData;
+  GraphData monthlyData;
+  GraphData yearlyData;
+  GraphData alltimeData;
   EmailPerformance performanceData;
   List<RecentEmail> recentEmailData;
+  List<RevenueStat> revenueStatsByType;
+  List<RevenueStat> revenueStatsByChannel;
 
   AnalyticsModel copyWith({
     income,
@@ -55,7 +63,9 @@ class AnalyticsModel {
     yearlyData,
     alltimeData,
     performanceData,
-    recentEmailData
+    recentEmailData,
+    revenueStatsByType,
+    revenueStatsByChannel
   }) =>
       AnalyticsModel(
           income ?? this.income,
@@ -67,12 +77,14 @@ class AnalyticsModel {
           yearlyData ?? this.yearlyData,
           alltimeData ?? this.alltimeData,
           performanceData ?? this.performanceData,
-          recentEmailData ?? this.recentEmailData
+          recentEmailData ?? this.recentEmailData,
+          revenueStatsByType ?? this.revenueStatsByType,
+          revenueStatsByChannel ?? this.revenueStatsByChannel,
       );
 }
 
 class _AnalyticsPageState extends State<AnalyticsPage> {
-  AnalyticsModel model = AnalyticsModel(0.0, 0, false, List(), List(), List(), List(), List(), EmailPerformance(), List());
+  AnalyticsModel model = AnalyticsModel(0.0, 0, false, null, null, null, null, null, EmailPerformance(), List(), List(), List());
 
   void updateModel(Function update) => setState(() {
     model = update();
@@ -84,34 +96,34 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
     update(() => model.copyWith(income: income, time: 0, loading: false));
   }
 
-  void _updateDailyGraphData(Future<List<GraphPoint>> parseDailyGraphData(), Function update) async {
-    update(() => model.copyWith(dailyData: List<GraphPoint>()));
+  void _updateDailyGraphData(Future<GraphData> parseDailyGraphData(), Function update) async {
+    update(() => model.copyWith(dailyData: null, loading: true));
     var data = await parseDailyGraphData();
-    update(() => model.copyWith(dailyData: data));
+    update(() => model.copyWith(dailyData: data, loading: false));
   }
 
-  void _updateWeeklyGraphData(Future<List<GraphPoint>> parseWeeklyGraphData(), Function update) async {
-    update(() => model.copyWith(weeklyData: List<GraphPoint>()));
+  void _updateWeeklyGraphData(Future<GraphData> parseWeeklyGraphData(), Function update) async {
+    update(() => model.copyWith(weeklyData: null, loading: true));
     var data = await parseWeeklyGraphData();
-    update(() => model.copyWith(weeklyData: data));
+    update(() => model.copyWith(weeklyData: data, loading: false));
   }
 
-  void _updateMonthlyGraphData(Future<List<GraphPoint>> parseMonthlyGraphData(), Function update) async {
-    update(() => model.copyWith(monthlyData: List<GraphPoint>()));
+  void _updateMonthlyGraphData(Future<GraphData> parseMonthlyGraphData(), Function update) async {
+    update(() => model.copyWith(monthlyData: null, loading: true));
     var data = await parseMonthlyGraphData();
-    update(() => model.copyWith(monthlyData: data));
+    update(() => model.copyWith(monthlyData: data, loading: false));
   }
 
-  void _updateYearlyGraphData(Future<List<GraphPoint>> parseYearlyGraphData(), Function update) async {
-    update(() => model.copyWith(yearlyData: List<GraphPoint>()));
+  void _updateYearlyGraphData(Future<GraphData> parseYearlyGraphData(), Function update) async {
+    update(() => model.copyWith(yearlyData: null, loading: true));
     var data = await parseYearlyGraphData();
-    update(() => model.copyWith(yearlyData: data));
+    update(() => model.copyWith(yearlyData: data, loading: false));
   }
 
-  void _updateAllTimeGraphData(Future<List<GraphPoint>> parseAllTimeGraphData(), Function update) async {
-    update(() => model.copyWith(alltimeData: List<GraphPoint>()));
+  void _updateAllTimeGraphData(Future<GraphData> parseAllTimeGraphData(), Function update) async {
+    update(() => model.copyWith(alltimeData: null, loading: true));
     var data = await parseAllTimeGraphData();
-    update(() => model.copyWith(alltimeData: data));
+    update(() => model.copyWith(alltimeData: data, loading: false));
   }
 
   void _updateEmailPerformance(Future<EmailPerformance> parseOverallEmailPerformanceData(), Function update) async {
@@ -126,20 +138,39 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
     update(() => model.copyWith(recentEmailData: data, loading: false));
   }
 
+  void _updateRevenueStatsByType(Future<List<RevenueStat>> parseRevenueStatsByType(), Function update) async {
+    update(() => model.copyWith(revenueStatsByType: List<RevenueStat>(), loading: true));
+    var data = await parseRevenueStatsByType();
+    update(() => model.copyWith(revenueStatsByType: data, loading: false));
+  }
+
+  void _updateRevenueStatsByChannel(Future<List<RevenueStat>> parseRevenueStatsByChannel(), Function update) async {
+    update(() => model.copyWith(revenueStatsByChannel: List<RevenueStat>(), loading: true));
+    var data = await parseRevenueStatsByChannel();
+    update(() => model.copyWith(revenueStatsByChannel: data, loading: false));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _updateIncome(getIncome, (func) => updateModel(func));
+    _updateDailyGraphData(parseDailyGraphData, (func) => updateModel(func));
+    _updateWeeklyGraphData(parseWeeklyGraphData, (func) => updateModel(func));
+    _updateMonthlyGraphData(parseMonthlyGraphData, (func) => updateModel(func));
+    _updateYearlyGraphData(parseYearlyGraphData, (func) => updateModel(func));
+    _updateAllTimeGraphData(parseAllTimeGraphData, (func) => updateModel(func));
+    _updateEmailPerformance(parseOverallEmailPerformanceData, (func) => updateModel(func));
+    _updateRecentEmailData(parseRecentEmailData, (func) => updateModel(func));
+    _updateRevenueStatsByType(parseRevenueStatsByType, (func) => updateModel(func));
+    _updateRevenueStatsByChannel(parseRevenueStatsByChannel, (func) => updateModel(func));
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnalyticsPageUI.buildUI(context,
       widget.title,
-        () {
-          _updateIncome(getIncome, (func) => updateModel(func));
-          _updateDailyGraphData(parseDailyGraphData, (func) => updateModel(func));
-          _updateWeeklyGraphData(parseWeeklyGraphData, (func) => updateModel(func));
-          _updateMonthlyGraphData(parseMonthlyGraphData, (func) => updateModel(func));
-          _updateYearlyGraphData(parseYearlyGraphData, (func) => updateModel(func));
-          _updateAllTimeGraphData(parseAllTimeGraphData, (func) => updateModel(func));
-          _updateEmailPerformance(parseOverallEmailPerformanceData, (func) => updateModel(func));
-          _updateRecentEmailData(parseRecentEmailData, (func) => updateModel(func));
-        },
       model
     );
   }
@@ -148,60 +179,150 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
 class AnalyticsPageUI {
   static buildUI(BuildContext context,
       String title,
-      Function update,
       AnalyticsModel model) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
       body: SingleChildScrollView(
-        child: Column(
+        child: Container(
+          color: Color(0xfff6f7f8),
+          child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: model.loading ? ( [new CircularProgressIndicator()] ) :
           ([
-            Text(
-              '${_formatNumber(model.income)}',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                PaddedText(
-                  text: '+\$798',
-                  fontSize: 12,
-                  paddingLeft: 10,
-                  paddingRight: 10,
-                ),
-                PaddedText(
-                  text: '^ 9.81%',
-                  fontSize: 12,
-                  paddingLeft: 10,
-                  paddingRight: 10,
-                ),
-                PaddedText(
-                  text: 'Past month',
-                  fontSize: 12,
-                  paddingLeft: 10,
-                  paddingRight: 10,
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            SimpleLineChart(dailyData: model.dailyData, weeklyData: model.weeklyData, monthlyData: model.monthlyData, yearlyData: model.yearlyData, alltimeData: model.alltimeData),
-            SizedBox(height: 30),
-            Container(
-              margin: EdgeInsets.all(20),
+            /*Container(
+              color: Color(0xff262545),
               child: Column(
+                children: [Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${_formatNumber(model.income)}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                        backgroundColor: Color(0xff262545),
+                      ),
+                    ),
+                  ]
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    PaddedText(
+                      text: '+\$798',
+                      fontSize: 12,
+                      paddingLeft: 10,
+                      paddingRight: 10,
+                    ),
+                    PaddedText(
+                      text: '^ 9.81%',
+                      fontSize: 12,
+                      paddingLeft: 10,
+                      paddingRight: 10,
+                    ),
+                    PaddedText(
+                      text: 'Past month',
+                      fontSize: 12,
+                      paddingLeft: 10,
+                      paddingRight: 10,
+                    ),
+                  ],
+                ),
+              ]),
+            ),
+            SimpleLineChart(dailyData: model.dailyData, weeklyData: model.weeklyData, monthlyData: model.monthlyData, yearlyData: model.yearlyData, alltimeData: model.alltimeData),
+            */Stack(children: [
+              new Column(
+                children: <Widget>[
+                  new Container(
+                    height: MediaQuery.of(context).size.height * .25,
+                    color: Color(0xff00332c),
+                  ),
+                  new Container(
+                    height: MediaQuery.of(context).size.height * .40,
+                    color: Color(0xff07453f),
+                  ),
+                  new Container(
+                    height: MediaQuery.of(context).size.height * .35,
+                    color: Color(0xfff6f7f8),
+                  )
+                ],
+              ),
+              /*Container(
+                  alignment: Alignment.topCenter,
+                  padding: new EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * .05,
+                      right: 20.0,
+                      left: 20.0),
+                  child: new Container(
+                    height: 200.0,
+                    width: MediaQuery.of(context).size.width,
+                    child: new Card(
+                      color: Colors.white,
+                      elevation: 4.0,
+                    ),
+                  ),
+              ),*/
+              Column(
                 children: [
-                  //TODO: Breakout into own left-aligned text widget class
-                  AlignedHeader(
-                    text: 'Email performance',
+                  SizedBox(height: 60),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 5),
+                          child: Text(
+                            'TOTAL REVENUE',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ]
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${_formatNumber(model.income)}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ]
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      PaddedText(
+                        text: '\$18,380 from NKA',
+                        fontSize: 12,
+                        fontColor: Colors.white,
+                        paddingTop: 5,
+                      ),
+                    ],
                   ),
                   SizedBox(height: 10),
-                  OverviewBox.withEmailData(model.performanceData),
+                  SimpleLineChart(dailyData: model.dailyData, weeklyData: model.weeklyData, monthlyData: model.monthlyData, yearlyData: model.yearlyData, alltimeData: model.alltimeData),
+                  SizedBox(height: 16),
+                  RevenueBox(title: 'REVENUE BY MESSAGE TYPE', stats:  model.revenueStatsByType),
+                  RevenueBox(title: 'REVENUE BY CHANNEL', stats: model.revenueStatsByChannel),
+                  EarningTrendBox(),
+                ],
+              ),
+              /*Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: MediaQuery.of(context).size.height * .65,
+              color: Colors.grey,
+              child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  RevenueBox(title: 'REVENUE BY MESSAGE TYPE', stats:  model.revenueStatsByType),
+                  RevenueBox(title: 'REVENUE BY CHANNEL', stats: model.revenueStatsByChannel),
                   SizedBox(height: 10),
                   StatBox(title: 'Recent emails', keyTitle: 'Name', valueTitle: 'Opens', stats: model.recentEmailData, values: model.recentEmailData.map((recentEmail) => recentEmail.opened).toList()),
                   SizedBox(height: 10),
@@ -217,14 +338,17 @@ class AnalyticsPageUI {
                 ],
               ),
             ),
+            ),*/
+            ]),
           ]),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      ),
+      /*floatingActionButton: FloatingActionButton(
         onPressed: update,
         tooltip: 'Update',
         child: Icon(Icons.update),
-      ),
+      ),*/
     );
   }
 

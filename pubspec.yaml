@@ -57,6 +57,8 @@ flutter:
     - assets/alltimegraph.json
     - assets/emailperformance.json
     - assets/recentemails.json
+    - assets/revenuestatstype.json
+    - assets/revenuestatschannel.json
 
 
   # To add assets to your application, add an assets section, like this:

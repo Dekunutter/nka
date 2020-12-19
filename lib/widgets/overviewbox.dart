@@ -36,6 +36,7 @@ class OverviewBox extends StatelessWidget {
     if (stats.length != 2 && stats.length != 4) {
       return Container(
         decoration: overviewBoxBorder(),
+        margin: EdgeInsets.all(20),
         padding: EdgeInsets.all(20),
           child: Text(
             'Invalid Data',
@@ -47,8 +48,9 @@ class OverviewBox extends StatelessWidget {
       );
     } else {
       return Container(
-          decoration: overviewBoxBorder(),
-          //padding: EdgeInsets.only(top: 10),
+        decoration: overviewBoxBorder(),
+        margin: EdgeInsets.all(20),
+        //padding: EdgeInsets.only(top: 10),
         padding: EdgeInsets.all(10),
           child: GridView.count(
             crossAxisCount: 2,

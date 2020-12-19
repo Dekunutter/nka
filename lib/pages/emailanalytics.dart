@@ -37,7 +37,7 @@ class EmailAnalyticsPage extends StatelessWidget {
               paddingRight: 10,
             ),
             SizedBox(height: 20),
-            SimpleLineChart(dailyData: stats.revenue),
+            //SimpleLineChart(dailyData: stats.revenue),
             SizedBox(height: 30),
             Container(
               margin: EdgeInsets.all(20),

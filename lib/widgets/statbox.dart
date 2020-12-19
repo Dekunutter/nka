@@ -16,6 +16,7 @@ class StatBox extends StatelessWidget {
   BoxDecoration statBoxBorder() {
     return BoxDecoration(
       border: Border.all(),
+      color: Colors.white,
     );
   }
 
@@ -25,6 +26,7 @@ class StatBox extends StatelessWidget {
     return Container(
       decoration: statBoxBorder(),
       padding: EdgeInsets.all(10),
+      margin: EdgeInsets.all(20),
       child: Column(
         children: [
           AlignedHeader(
@@ -55,7 +57,7 @@ class StatBox extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: Align(
-                      alignment: Alignment.centerRight,
+                      alignment: Alignment.bottomRight,
                       child: Text(values[position].toString()),
                     ),
                   ),

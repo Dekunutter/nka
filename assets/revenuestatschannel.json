@@ -1,0 +1,16 @@
+{
+  "revenue_stats": [
+    {
+      "name": "Email",
+      "value": "$150.25"
+    },
+    {
+      "name": "SMS",
+      "value": "$147.75"
+    },
+    {
+      "name": "Push",
+      "value": "$147.75"
+    }
+  ]
+}
